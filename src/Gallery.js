@@ -52,6 +52,7 @@ class Gallery extends React.Component{
 	    currentImage: this.state.currentImage + 1,
 	});
     }
+
     render(){
         var rowLimit = 1,
             photoPreviewNodes = [];
@@ -94,18 +95,42 @@ class Gallery extends React.Component{
                 }
 		var src = this.props.photos[k].src;
 
-		if (this.props.disableLightbox){
-		    photoPreviewNodes.push(
+		if (this.props.photos[k].onClick) {
+			const link = this.props.photos[k].link
+				? this.props.photos[k].link
+				: '#';
+			photoPreviewNodes.push(
+				<div key={k} style={style}>
+					<a href={link} onClick={this.props.photos[k].onClick}>
+						<img src={src}
+								 style={{display:'block', border:0}}
+								 height={commonHeight}
+								 width={commonHeight * this.props.photos[k].aspectRatio}
+								 alt="" />
+					</a>
+				</div>
+			);
+		} else if (this.props.disableLightbox){
+			photoPreviewNodes.push(
 			 <div key={k} style={style}>
-			    <img src={src} style={{display:'block', border:0}} height={commonHeight} width={commonHeight * this.props.photos[k].aspectRatio} alt="" />
+			    <img src={src}
+					 style={{display:'block', border:0}}
+					 height={commonHeight}
+					 width={commonHeight * this.props.photos[k].aspectRatio}
+					 alt="" />
 			 </div>
 		    );
 		}
 		else{
-		    lightboxImages.push(this.props.photos[k].lightboxImage);
-		    photoPreviewNodes.push(
+			lightboxImages.push(this.props.photos[k].lightboxImage);
+			photoPreviewNodes.push(
 			 <div key={k} style={style}>
-			    <a href="#" className={k} onClick={this.openLightbox.bind(this, k)}><img src={src} style={{display:'block', border:0}} height={commonHeight} width={commonHeight * this.props.photos[k].aspectRatio} alt="" /></a>
+			    <a href="#" className={k} onClick={this.openLightbox.bind(this, k)}>
+					<img src={src}
+						 style={{display:'block', border:0}}
+						 height={commonHeight}
+						 width={commonHeight * this.props.photos[k].aspectRatio} alt="" />
+				</a>
 			 </div>
 		    );
 		}
