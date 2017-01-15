@@ -101,7 +101,7 @@ class Gallery extends React.Component{
 				: '#';
 			photoPreviewNodes.push(
 				<div key={k} style={style}>
-					<a href={link} onClick={this.props.photos[k].onClick}>
+					<a href={link} onClick={this.props.photos[k].onClick} className={'image'}>
 						<img src={src}
 								 style={{display:'block', border:0}}
 								 height={commonHeight}
@@ -112,7 +112,7 @@ class Gallery extends React.Component{
 			);
 		} else if (this.props.disableLightbox){
 			photoPreviewNodes.push(
-			 <div key={k} style={style}>
+			 <div key={k} style={style} className={'image'}>
 			    <img src={src}
 					 style={{display:'block', border:0}}
 					 height={commonHeight}
